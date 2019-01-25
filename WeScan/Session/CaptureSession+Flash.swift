@@ -11,7 +11,7 @@ import Foundation
 /// Extension to CaptureSession to manage the device flashlight
 extension CaptureSession {
     /// The possible states that the current device's flashlight can be in
-    enum FlashState {
+    public enum FlashState {
         case on
         case off
         case unavailable
@@ -19,7 +19,7 @@ extension CaptureSession {
     }
     
     /// Toggles the current device's flashlight on or off.
-    func toggleFlash() -> FlashState {
+    public func toggleFlash() -> FlashState {
         guard let device = device, device.isTorchAvailable else { return .unavailable }
         
         do {

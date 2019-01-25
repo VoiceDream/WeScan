@@ -9,8 +9,8 @@
 import UIKit
 
 /// A yellow rectangle used to display the last 'tap to focus' point
-final class FocusRectangleView: UIView {
-    convenience init(touchPoint: CGPoint) {
+public final class FocusRectangleView: UIView {
+    public convenience init(touchPoint: CGPoint) {
         let originalSize: CGFloat = 200
         let finalSize: CGFloat = 80
         

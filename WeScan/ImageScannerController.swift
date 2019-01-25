@@ -75,7 +75,7 @@ public final class ImageScannerController: UINavigationController {
             // *** Vision *requires* a completion block to detect rectangles, but it's instant.
             // *** When using Vision, we'll present the normal edit view controller first, then present the updated edit view controller later.
             defer {
-                let editViewController = EditScanViewController(image: image, quad: detectedQuad, rotateImage: false)
+                let editViewController = EditVDSMainViewController(image: image, quad: detectedQuad, rotateImage: false)
                 setViewControllers([editViewController], animated: false)
             }
             
@@ -87,7 +87,7 @@ public final class ImageScannerController: UINavigationController {
                     detectedQuad = quad
                     detectedQuad?.reorganize()
 
-                    let editViewController = EditScanViewController(image: image, quad: detectedQuad, rotateImage: false)
+                    let editViewController = EditVDSMainViewController(image: image, quad: detectedQuad, rotateImage: false)
                     self.setViewControllers([editViewController], animated: true)
                 }
             } else {
@@ -139,7 +139,7 @@ public struct ImageScannerResults {
     public var originalImage: UIImage
     
     /// The deskewed and cropped orignal image using the detected rectangle, without any filters.
-    public var scannedImage: UIImage
+    public var scannedPage: UIImage
     
     /// The enhanced image, passed through an Adaptive Thresholding function. This image will always be grayscale and may not always be available.
     public var enhancedImage: UIImage?
@@ -147,7 +147,7 @@ public struct ImageScannerResults {
     /// Whether the user wants to use the enhanced image or not. The `enhancedImage`, for use with OCR or similar uses, may still be available even if it has not been selected by the user.
     public var doesUserPreferEnhancedImage: Bool
     
-    /// The detected rectangle which was used to generate the `scannedImage`.
+    /// The detected rectangle which was used to generate the `scannedPage`.
     public var detectedRectangle: Quadrilateral
     
 }

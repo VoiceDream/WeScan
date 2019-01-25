@@ -39,14 +39,14 @@ final class ReviewViewControllerTests: FBSnapshotTestCase {
     }
     
     func testDemoImageIsCorrect() {
-        let results = ImageScannerResults(originalImage: demoImage, scannedImage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
+        let results = ImageScannerResults(originalImage: demoImage, scannedPage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
         let vc = ReviewViewController(results: results)
         vc.viewDidLoad()
         FBSnapshotVerifyView(vc.imageView)
     }
     
     func testImageIsCorrectlyRotated90() {
-        let results = ImageScannerResults(originalImage: demoImage, scannedImage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
+        let results = ImageScannerResults(originalImage: demoImage, scannedPage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
         let vc = ReviewViewController(results: results)
         vc.viewDidLoad()
         vc.rotateImage()
@@ -54,7 +54,7 @@ final class ReviewViewControllerTests: FBSnapshotTestCase {
     }
     
     func testImageIsCorrectlyRotated180() {
-        let results = ImageScannerResults(originalImage: demoImage, scannedImage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
+        let results = ImageScannerResults(originalImage: demoImage, scannedPage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
         let vc = ReviewViewController(results: results)
         vc.viewDidLoad()
         
@@ -65,7 +65,7 @@ final class ReviewViewControllerTests: FBSnapshotTestCase {
     }
     
     func testImageIsCorrectlyRotated270() {
-        let results = ImageScannerResults(originalImage: demoImage, scannedImage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
+        let results = ImageScannerResults(originalImage: demoImage, scannedPage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
         let vc = ReviewViewController(results: results)
         vc.viewDidLoad()
         
@@ -77,7 +77,7 @@ final class ReviewViewControllerTests: FBSnapshotTestCase {
     }
     
     func testImageIsCorrectlyRotated360() {
-        let results = ImageScannerResults(originalImage: demoImage, scannedImage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
+        let results = ImageScannerResults(originalImage: demoImage, scannedPage: demoImage, enhancedImage: demoImage, doesUserPreferEnhancedImage: false, detectedRectangle: demoQuad)
         let vc = ReviewViewController(results: results)
         vc.viewDidLoad()
         

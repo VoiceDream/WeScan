@@ -11,7 +11,7 @@ import Foundation
 
 extension CIImage {
     /// Applies an AdaptiveThresholding filter to the image, which enhances the image and makes it completely gray scale
-    func applyingAdaptiveThreshold() -> UIImage? {
+    public func applyingAdaptiveThreshold() -> UIImage? {
         guard let colorKernel = CIColorKernel(source:
             """
             kernel vec4 color(__sample pixel, float inputEdgeO, float inputEdge1)

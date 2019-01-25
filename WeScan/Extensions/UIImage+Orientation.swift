@@ -11,7 +11,7 @@ import Foundation
 extension UIImage {
     
     /// Returns the same image with a portrait orientation.
-    func applyingPortraitOrientation() -> UIImage {
+    public func applyingPortraitOrientation() -> UIImage {
         switch imageOrientation {
         case .up:
             return rotated(by: Measurement(value: Double.pi, unit: .radians), options: []) ?? self
@@ -70,7 +70,7 @@ extension UIImage {
     }
     
     /// Rotates the image based on the information collected by the accelerometer
-    func withFixedOrientation() -> UIImage {
+    public func withFixedOrientation() -> UIImage {
         var imageAngle: Double = 0.0
         
         var shouldRotate = true

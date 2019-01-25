@@ -18,7 +18,7 @@ enum CornerPosition {
 }
 
 /// The `QuadrilateralView` is a simple `UIView` subclass that can draw a quadrilateral, and optionally edit it.
-final class QuadrilateralView: UIView {
+public final class QuadrilateralView: UIView {
     
     private let quadLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
@@ -26,7 +26,16 @@ final class QuadrilateralView: UIView {
         layer.lineWidth = 1.0
         layer.opacity = 1.0
         layer.isHidden = true
-        
+        return layer
+    }()
+    
+    private let rectLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.strokeColor = UIColor.black.cgColor
+        layer.fillColor = UIColor.clear.cgColor
+        layer.lineWidth = 2.0
+        layer.opacity = 1.0
+        layer.isHidden = true
         return layer
     }()
     
@@ -40,7 +49,7 @@ final class QuadrilateralView: UIView {
     }()
     
     /// The quadrilateral drawn on the view.
-    private(set) var quad: Quadrilateral?
+    public var quad: Quadrilateral?
     
     public var editable = false {
         didSet {
@@ -91,7 +100,8 @@ final class QuadrilateralView: UIView {
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
     private func commonInit() {
@@ -99,6 +109,7 @@ final class QuadrilateralView: UIView {
         setupCornerViews()
         setupConstraints()
         quadView.layer.addSublayer(quadLayer)
+        quadView.layer.addSublayer(rectLayer)
     }
     
     private func setupConstraints() {
@@ -124,7 +135,7 @@ final class QuadrilateralView: UIView {
         guard quadLayer.frame != bounds else {
             return
         }
-        
+        rectLayer.frame = bounds
         quadLayer.frame = bounds
         if let quad = quad {
             drawQuadrilateral(quad: quad, animated: false)
@@ -137,7 +148,7 @@ final class QuadrilateralView: UIView {
     ///
     /// - Parameters:
     ///   - quad: The quadrilateral to draw on the view. It should be in the coordinates of the current `QuadrilateralView` instance.
-    func drawQuadrilateral(quad: Quadrilateral, animated: Bool) {
+    public func drawQuadrilateral(quad: Quadrilateral, animated: Bool) {
         self.quad = quad
         drawQuad(quad, animated: animated)
         if editable {
@@ -163,6 +174,8 @@ final class QuadrilateralView: UIView {
         
         quadLayer.path = path.cgPath
         quadLayer.isHidden = false
+        rectLayer.path = UIBezierPath(rect: bounds).cgPath
+        rectLayer.isHidden = !editable
     }
     
     private func layoutCornerViews(forQuad quad: Quadrilateral) {
@@ -172,9 +185,10 @@ final class QuadrilateralView: UIView {
         bottomRightCornerView.center = quad.bottomRight
     }
     
-    func removeQuadrilateral() {
+    public func removeQuadrilateral() {
         quadLayer.path = nil
         quadLayer.isHidden = true
+        rectLayer.isHidden = true
     }
     
     // MARK: - Actions

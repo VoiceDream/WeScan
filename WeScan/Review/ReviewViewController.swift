@@ -19,7 +19,7 @@ final class ReviewViewController: UIViewController {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.isOpaque = true
-        imageView.image = results.scannedImage
+        imageView.image = results.scannedPage
         imageView.backgroundColor = .black
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -119,7 +119,7 @@ final class ReviewViewController: UIViewController {
         if enhancedImageIsAvailable, isCurrentlyDisplayingEnhancedImage {
             imageView.image = results.enhancedImage?.rotated(by: rotationAngle) ?? results.enhancedImage
         } else {
-            imageView.image = results.scannedImage.rotated(by: rotationAngle) ?? results.scannedImage
+            imageView.image = results.scannedPage.rotated(by: rotationAngle) ?? results.scannedPage
         }
     }
     
@@ -150,7 +150,7 @@ final class ReviewViewController: UIViewController {
     @objc private func finishScan() {
         guard let imageScannerController = navigationController as? ImageScannerController else { return }
         var newResults = results
-        newResults.scannedImage = results.scannedImage.rotated(by: rotationAngle) ?? results.scannedImage
+        newResults.scannedPage = results.scannedPage.rotated(by: rotationAngle) ?? results.scannedPage
         newResults.enhancedImage = results.enhancedImage?.rotated(by: rotationAngle) ?? results.enhancedImage
         newResults.doesUserPreferEnhancedImage = isCurrentlyDisplayingEnhancedImage
         imageScannerController.imageScannerDelegate?.imageScannerController(imageScannerController, didFinishScanningWithResults: newResults)

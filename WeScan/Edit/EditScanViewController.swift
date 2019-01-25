@@ -1,5 +1,5 @@
 //
-//  EditScanViewController.swift
+//  EditVDSMainViewController.swift
 //  WeScan
 //
 //  Created by Boris Emorine on 2/12/18.
@@ -9,8 +9,8 @@
 import UIKit
 import AVFoundation
 
-/// The `EditScanViewController` offers an interface for the user to edit the detected quadrilateral.
-final class EditScanViewController: UIViewController {
+/// The `EditVDSMainViewController` offers an interface for the user to edit the detected quadrilateral.
+final class EditVDSMainViewController: UIViewController {
     
     lazy private var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -31,7 +31,7 @@ final class EditScanViewController: UIViewController {
     }()
     
     lazy private var nextButton: UIBarButtonItem = {
-        let title = NSLocalizedString("wescan.edit.button.next", tableName: nil, bundle: Bundle(for: EditScanViewController.self), value: "Next", comment: "A generic next button")
+        let title = NSLocalizedString("wescan.edit.button.next", tableName: nil, bundle: Bundle(for: EditVDSMainViewController.self), value: "Next", comment: "A generic next button")
         let button = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(pushReviewController))
         button.tintColor = navigationController?.navigationBar.tintColor
         return button
@@ -52,7 +52,7 @@ final class EditScanViewController: UIViewController {
     
     init(image: UIImage, quad: Quadrilateral?, rotateImage: Bool = true) {
         self.image = rotateImage ? image.applyingPortraitOrientation() : image
-        self.quad = quad ?? EditScanViewController.defaultQuad(forImage: image)
+        self.quad = quad ?? EditVDSMainViewController.defaultQuad(forImage: image)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,7 +65,7 @@ final class EditScanViewController: UIViewController {
         
         setupViews()
         setupConstraints()
-        title = NSLocalizedString("wescan.edit.title", tableName: nil, bundle: Bundle(for: EditScanViewController.self), value: "Edit Scan", comment: "The title of the EditScanViewController")
+        title = NSLocalizedString("wescan.edit.title", tableName: nil, bundle: Bundle(for: EditVDSMainViewController.self), value: "Edit Scan", comment: "The title of the EditVDSMainViewController")
         navigationItem.rightBarButtonItem = nextButton
         
         zoomGestureController = ZoomGestureController(image: image, quadView: quadView)
@@ -160,7 +160,7 @@ final class EditScanViewController: UIViewController {
         
         let finalImage = uiImage.withFixedOrientation()
         
-        let results = ImageScannerResults(originalImage: image, scannedImage: finalImage, enhancedImage: enhancedImage, doesUserPreferEnhancedImage: false, detectedRectangle: scaledQuad)
+        let results = ImageScannerResults(originalImage: image, scannedPage: finalImage, enhancedImage: enhancedImage, doesUserPreferEnhancedImage: false, detectedRectangle: scaledQuad)
         let reviewViewController = ReviewViewController(results: results)
         
         navigationController?.pushViewController(reviewViewController, animated: true)

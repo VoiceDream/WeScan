@@ -17,7 +17,7 @@ extension CGAffineTransform {
     ///   - toSize: The size that should be matched by the `fromSize` parameter.
     /// - Returns: The transform that will make the `fromSize` parameter fir (aspect fill) inside the `toSize` parameter.
     public static func scaleTransform(forSize fromSize: CGSize, aspectFillInSize toSize: CGSize) -> CGAffineTransform {
-        let scale = min(toSize.width / fromSize.width, toSize.height / fromSize.height)
+        let scale = max(toSize.width / fromSize.width, toSize.height / fromSize.height)
         return CGAffineTransform(scaleX: scale, y: scale)
     }
     

@@ -18,22 +18,24 @@ enum CornerPosition {
 }
 
 /// The `QuadrilateralView` is a simple `UIView` subclass that can draw a quadrilateral, and optionally edit it.
-public final class QuadrilateralView: UIView {
+open class QuadrilateralView: UIView {
+    
+    public var cornerRadius: CGFloat = 10.0
     
     private let quadLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.strokeColor = UIColor.white.cgColor
-        layer.lineWidth = 1.0
+        layer.strokeColor = UIColor.clear.cgColor
+        layer.lineWidth = 0.0
         layer.opacity = 1.0
         layer.isHidden = true
         return layer
     }()
     
-    private let rectLayer: CAShapeLayer = {
+    private let visibleQuadLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.strokeColor = UIColor.black.cgColor
+        layer.strokeColor = UIColor.white.cgColor
         layer.fillColor = UIColor.clear.cgColor
-        layer.lineWidth = 2.0
+        layer.lineWidth = 1.0
         layer.opacity = 1.0
         layer.isHidden = true
         return layer
@@ -89,8 +91,8 @@ public final class QuadrilateralView: UIView {
         return EditScanCornerView(frame: CGRect(origin: .zero, size: cornerViewSize), position: .bottomLeft)
     }()
     
-    private let highlightedCornerViewSize = CGSize(width: 75.0, height: 75.0)
-    private let cornerViewSize = CGSize(width: 20.0, height: 20.0)
+    private let highlightedCornerViewSize = CGSize(width: 100.0, height: 100.0)
+    private let cornerViewSize = CGSize(width: 50.0, height: 50.0)
     
     // MARK: - Life Cycle
     
@@ -109,7 +111,7 @@ public final class QuadrilateralView: UIView {
         setupCornerViews()
         setupConstraints()
         quadView.layer.addSublayer(quadLayer)
-        quadView.layer.addSublayer(rectLayer)
+        quadView.layer.addSublayer(visibleQuadLayer)
     }
     
     private func setupConstraints() {
@@ -130,12 +132,12 @@ public final class QuadrilateralView: UIView {
         addSubview(bottomLeftCornerView)
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         guard quadLayer.frame != bounds else {
             return
         }
-        rectLayer.frame = bounds
+        visibleQuadLayer.frame = bounds
         quadLayer.frame = bounds
         if let quad = quad {
             drawQuadrilateral(quad: quad, animated: false)
@@ -174,8 +176,8 @@ public final class QuadrilateralView: UIView {
         
         quadLayer.path = path.cgPath
         quadLayer.isHidden = false
-        rectLayer.path = UIBezierPath(rect: bounds).cgPath
-        rectLayer.isHidden = !editable
+        visibleQuadLayer.path = quad.path.cgPath
+        visibleQuadLayer.isHidden = !editable
     }
     
     private func layoutCornerViews(forQuad quad: Quadrilateral) {
@@ -188,7 +190,7 @@ public final class QuadrilateralView: UIView {
     public func removeQuadrilateral() {
         quadLayer.path = nil
         quadLayer.isHidden = true
-        rectLayer.isHidden = true
+        visibleQuadLayer.isHidden = true
     }
     
     // MARK: - Actions

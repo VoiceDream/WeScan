@@ -25,12 +25,21 @@ final class EditScanCornerView: UIView {
         return layer
     }()
     
+//    lazy private var circleLayer2: CAShapeLayer = {
+//        let layer = CAShapeLayer()
+//        layer.fillColor = UIColor.clear.cgColor
+//        layer.strokeColor = UIColor.white.cgColor
+//        layer.lineWidth = 1.0
+//        return layer
+//    }()
+    
     init(frame: CGRect, position: CornerPosition) {
         self.position = position
         super.init(frame: frame)
         backgroundColor = UIColor.clear
         clipsToBounds = true
         layer.addSublayer(circleLayer)
+//        layer.addSublayer(circleLayer2)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,6 +58,13 @@ final class EditScanCornerView: UIView {
         circleLayer.frame = rect
         circleLayer.path = bezierPath.cgPath
         
+//        var rect2 = rect
+//        rect2.size.width *= 0.5
+//        rect2.size.height *= 0.5
+//        let bezierPath2 = UIBezierPath(ovalIn: rect2.insetBy(dx: circleLayer2.lineWidth, dy: circleLayer2.lineWidth))
+//        circleLayer2.frame = rect.scaleAndCenter(withRatio: 0.5)
+//        circleLayer2.path = bezierPath2.cgPath
+
         image?.draw(in: rect)
     }
     

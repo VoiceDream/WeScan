@@ -54,7 +54,13 @@ public final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSamp
     public var shouldDetectImageOrientation: Bool = false
     
     /// Whether the CaptureSessionManager should be detecting quadrilaterals.
-    private var isDetecting = true
+    private var shouldDetectRectangle = true
+    
+    private var isDetectingRectangle = false
+    
+    public var isCameraAvailable: Bool {
+        return captureSession.isRunning
+    }
     
     /// The number of times no rectangles have been found in a row.
     private var noRectangleCount = 0
@@ -127,7 +133,7 @@ public final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSamp
             DispatchQueue.main.async {
                 self.captureSession.startRunning()
             }
-            isDetecting = true
+            shouldDetectRectangle = true
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (_) in
                 DispatchQueue.main.async { [weak self] in
@@ -161,21 +167,23 @@ public final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSamp
     // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
     
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard isDetecting == true,
+        guard shouldDetectRectangle, !isDetectingRectangle,
             let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
-        
+        isDetectingRectangle = true
         let finalImage = CIImage(cvPixelBuffer: pixelBuffer)
         let imageSize = finalImage.extent.size
         
         if #available(iOS 11.0, *) {
             VisionRectangleDetector.rectangle(forImage: finalImage) { (rectangle) in
                 self.processRectangle(rectangle: rectangle, imageSize: imageSize)
+                self.isDetectingRectangle = false
             }
         } else {
             CIRectangleDetector.rectangle(forImage: finalImage) { (rectangle) in
                 self.processRectangle(rectangle: rectangle, imageSize: imageSize)
+                self.isDetectingRectangle = false
             }
         }
     }
@@ -249,7 +257,7 @@ extension CaptureSessionManager: AVCapturePhotoCaptureDelegate {
             CaptureSession.current.setImageOrientation()
         }
         
-        isDetecting = false
+        shouldDetectRectangle = false
         rectangleFunnel.currentAutoScanPassCount = 0
         delegate?.didStartCapturingPicture(for: self)
         
@@ -275,7 +283,7 @@ extension CaptureSessionManager: AVCapturePhotoCaptureDelegate {
             CaptureSession.current.setImageOrientation()
         }
 
-        isDetecting = false
+        shouldDetectRectangle = false
         rectangleFunnel.currentAutoScanPassCount = 0
         delegate?.didStartCapturingPicture(for: self)
         

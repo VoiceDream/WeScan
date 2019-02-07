@@ -22,7 +22,7 @@ open class QuadrilateralView: UIView {
     
     public var cornerRadius: CGFloat = 10.0
     
-    private let quadLayer: CAShapeLayer = {
+    public let quadLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.strokeColor = UIColor.clear.cgColor
         layer.lineWidth = 0.0

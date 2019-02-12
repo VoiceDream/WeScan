@@ -326,7 +326,7 @@ extension CaptureSessionManager: AVCapturePhotoCaptureDelegate {
             var quad: Quadrilateral?
             if let displayedRectangleResult = self?.displayedRectangleResult {
                 quad = self?.displayRectangleResult(rectangleResult: displayedRectangleResult)
-                quad = quad?.scale(displayedRectangleResult.imageSize, image.size, withRotationAngle: angle)
+                quad = quad?.scale(displayedRectangleResult.imageSize, image.size, rotationAngle: angle)
             }
             
             DispatchQueue.main.async {

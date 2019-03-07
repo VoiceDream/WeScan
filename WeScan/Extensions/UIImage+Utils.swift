@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension UIImage {
+public extension UIImage {
     
     /// Draws a new cropped and scaled (zoomed in) image.
     ///
@@ -17,7 +17,7 @@ extension UIImage {
     ///   - scaleFactor: Factor by which the image should be zoomed in.
     ///   - size: The size of the rect the image will be displayed in.
     /// - Returns: The scaled and cropped image.
-    func scaledImage(atPoint point: CGPoint, scaleFactor: CGFloat, targetSize size: CGSize) -> UIImage? {
+    public func scaledImage(atPoint point: CGPoint, scaleFactor: CGFloat, targetSize size: CGSize) -> UIImage? {
       
         guard let cgImage = self.cgImage else {
             return nil

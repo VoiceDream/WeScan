@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension CGPoint {
+public extension CGPoint {
     
     /// Returns a rectangle of a given size surounding the point.
     ///
@@ -44,7 +44,7 @@ extension CGPoint {
     }
     
     /// Returns the closest corner from the point
-    func closestCornerFrom(quad: Quadrilateral) -> CornerPosition {
+    public func closestCornerFrom(quad: Quadrilateral) -> CornerPosition {
         var smallestDistance = distanceTo(point: quad.topLeft)
         var closestCorner = CornerPosition.topLeft
         

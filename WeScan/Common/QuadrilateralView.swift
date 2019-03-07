@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 /// Simple enum to keep track of the position of the corners of a quadrilateral.
-enum CornerPosition {
+public enum CornerPosition {
     case topLeft
     case topRight
     case bottomRight
@@ -195,7 +195,7 @@ open class QuadrilateralView: UIView {
     
     // MARK: - Actions
     
-    func moveCorner(cornerView: EditScanCornerView, atPoint point: CGPoint) {
+    public func moveCorner(cornerView: EditScanCornerView, atPoint point: CGPoint) {
         guard let quad = quad else {
             return
         }
@@ -209,7 +209,7 @@ open class QuadrilateralView: UIView {
         drawQuad(updatedQuad, animated: false)
     }
     
-    func highlightCornerAtPosition(position: CornerPosition, with image: UIImage) {
+    public func highlightCornerAtPosition(position: CornerPosition, with image: UIImage) {
         guard editable else {
             return
         }
@@ -227,7 +227,7 @@ open class QuadrilateralView: UIView {
         cornerView.highlightWithImage(image)
     }
     
-    func resetHighlightedCornerViews() {
+    public func resetHighlightedCornerViews() {
         isHighlighted = false
         resetHighlightedCornerViews(cornerViews: [topLeftCornerView, topRightCornerView, bottomLeftCornerView, bottomRightCornerView])
     }
@@ -299,7 +299,7 @@ open class QuadrilateralView: UIView {
         return quad
     }
     
-    func cornerViewForCornerPosition(position: CornerPosition) -> EditScanCornerView {
+    public func cornerViewForCornerPosition(position: CornerPosition) -> EditScanCornerView {
         switch position {
         case .topLeft:
             return topLeftCornerView

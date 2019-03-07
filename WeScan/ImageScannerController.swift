@@ -79,22 +79,22 @@ public final class ImageScannerController: UINavigationController {
                 setViewControllers([editViewController], animated: false)
             }
             
-            guard let ciImage = CIImage(image: image) else { return }
+//            guard let ciImage = CIImage(image: image) else { return }
             
-            if #available(iOS 11.0, *) {
-                // Use the VisionRectangleDetector on iOS 11 to attempt to find a rectangle from the initial image.
-                VisionRectangleDetector.rectangle(forImage: ciImage) { (quad) in
-                    detectedQuad = quad
-                    detectedQuad?.reorganize()
-
-                    let editViewController = EditVDSMainViewController(image: image, quad: detectedQuad, rotateImage: false)
-                    self.setViewControllers([editViewController], animated: true)
-                }
-            } else {
-                // Use the CIRectangleDetector on iOS 10 to attempt to find a rectangle from the initial image.
-                detectedQuad = CIRectangleDetector.rectangle(forImage: ciImage)
-                detectedQuad?.reorganize()
-            }
+//            if #available(iOS 11.0, *) {
+//                // Use the VisionRectangleDetector on iOS 11 to attempt to find a rectangle from the initial image.
+//                VisionRectangleDetector.rectangle(forImage: ciImage) { (quad) in
+//                    detectedQuad = quad
+//                    detectedQuad?.reorganize()
+//
+//                    let editViewController = EditVDSMainViewController(image: image, quad: detectedQuad, rotateImage: false)
+//                    self.setViewControllers([editViewController], animated: true)
+//                }
+//            } else {
+//                // Use the CIRectangleDetector on iOS 10 to attempt to find a rectangle from the initial image.
+//                detectedQuad = CIRectangleDetector.rectangle(forImage: ciImage)
+//                detectedQuad?.reorganize()
+//            }
         }
     }
     

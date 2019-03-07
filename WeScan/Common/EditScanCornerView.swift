@@ -9,7 +9,7 @@
 import UIKit
 
 /// A UIView used by corners of a quadrilateral that is aware of its position.
-final class EditScanCornerView: UIView {
+final public class EditScanCornerView: UIView {
     
     let position: CornerPosition
     
@@ -46,12 +46,12 @@ final class EditScanCornerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.width / 2.0
     }
     
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         super.draw(rect)
         
         let bezierPath = UIBezierPath(ovalIn: rect.insetBy(dx: circleLayer.lineWidth, dy: circleLayer.lineWidth))

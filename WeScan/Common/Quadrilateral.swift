@@ -24,7 +24,7 @@ public struct Quadrilateral: Transformable {
     /// A point that specifies the bottom left corner of the quadrilateral.
     public var bottomLeft: CGPoint
     
-    init(rectangleFeature: CIRectangleFeature) {
+    public init(rectangleFeature: CIRectangleFeature) {
         self.topLeft = rectangleFeature.topLeft
         self.topRight = rectangleFeature.topRight
         self.bottomLeft = rectangleFeature.bottomLeft

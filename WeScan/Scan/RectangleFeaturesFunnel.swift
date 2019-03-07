@@ -9,14 +9,14 @@
 import Foundation
 import AVFoundation
 
-enum AddResult {
+public enum AddResult {
     case showAndAutoScan
     case showOnly
 }
 
 /// `RectangleFeaturesFunnel` is used to improve the confidence of the detected rectangles.
 /// Feed rectangles to a `RectangleFeaturesFunnel` instance, and it will call the completion block with a rectangle whose confidence is high enough to be displayed.
-final class RectangleFeaturesFunnel {
+public final class RectangleFeaturesFunnel {
     
     /// `RectangleMatch` is a class used to assign matching scores to rectangles.
     private final class RectangleMatch: NSObject {
@@ -66,12 +66,14 @@ final class RectangleFeaturesFunnel {
     let autoScanThreshold = 35
     
     /// The number of times the rectangle has passed the threshold to be auto-scanned
-    var currentAutoScanPassCount = 0
+    public var currentAutoScanPassCount = 0
     
     /// The value in pixels used to determine if a rectangle is accurate enough to be auto scanned.
     /// A higher value means the auto scan is quicker, but the rectangle will be less accurate. On the other hand, the lower the value, the longer it'll take for the auto scan, but it'll be way more accurate
     var autoScanMatchingThreshold: CGFloat = 6.0
     
+    public init() {
+    }
     /// Add a rectangle to the funnel, and if a new rectangle should be displayed, the completion block will be called.
     /// The algorithm works the following way:
     /// 1. Makes sure that the funnel has been fed enough rectangles
@@ -84,7 +86,7 @@ final class RectangleFeaturesFunnel {
     ///   - rectangleFeature: The rectangle to feed to the funnel.
     ///   - currentRectangle: The currently displayed rectangle. This is used to avoid displaying very close rectangles.
     ///   - completion: The completion block called when a new rectangle should be displayed.
-    func add(_ rectangleFeature: Quadrilateral, currentlyDisplayedRectangle currentRectangle: Quadrilateral?, completion: (AddResult, Quadrilateral) -> Void) {
+    public func add(_ rectangleFeature: Quadrilateral, currentlyDisplayedRectangle currentRectangle: Quadrilateral?, completion: (AddResult, Quadrilateral) -> Void) {
         let rectangleMatch = RectangleMatch(rectangleFeature: rectangleFeature)
         rectangles.append(rectangleMatch)
         

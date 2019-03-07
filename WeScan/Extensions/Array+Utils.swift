@@ -9,10 +9,10 @@
 import Vision
 import Foundation
 
-extension Array where Element == Quadrilateral {
+public extension Array where Element == Quadrilateral {
     
     /// Finds the biggest rectangle within an array of `Quadrilateral` objects.
-    func biggest() -> Quadrilateral? {
+    public func biggest() -> Quadrilateral? {
         guard count > 1 else {
             return first
         }

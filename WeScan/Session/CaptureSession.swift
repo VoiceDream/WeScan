@@ -29,17 +29,12 @@ public final class CaptureSession {
     /// Whether the user is past the scanning screen or not (needed to disable auto scan on other screens)
     public var isEditing: Bool
     
-    /// The status of auto scan. Auto scan tries to automatically scan a detected rectangle if it has a high enough accuracy.
-    public var isAutoScanEnabled: Bool
-    
     /// The orientation of the captured image
     public var editImageOrientation: CGImagePropertyOrientation
     
-    private init(isAutoScanEnabled: Bool = true, editImageOrientation: CGImagePropertyOrientation = .up) {
+    private init(editImageOrientation: CGImagePropertyOrientation = .up) {
         self.device = AVCaptureDevice.default(for: .video)
-        
         self.isEditing = false
-        self.isAutoScanEnabled = isAutoScanEnabled
         self.editImageOrientation = editImageOrientation
     }
     

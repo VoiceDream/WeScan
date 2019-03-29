@@ -44,7 +44,7 @@ public extension CGPoint {
     }
     
     /// Returns the closest corner from the point
-    public func closestCornerFrom(quad: Quadrilateral) -> CornerPosition {
+    func closestCornerFrom(quad: Quadrilateral) -> CornerPosition {
         var smallestDistance = distanceTo(point: quad.topLeft)
         var closestCorner = CornerPosition.topLeft
         

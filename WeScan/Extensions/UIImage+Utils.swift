@@ -17,7 +17,7 @@ public extension UIImage {
     ///   - scaleFactor: Factor by which the image should be zoomed in.
     ///   - size: The size of the rect the image will be displayed in.
     /// - Returns: The scaled and cropped image.
-    public func scaledImage(atPoint point: CGPoint, scaleFactor: CGFloat, targetSize size: CGSize) -> UIImage? {
+    func scaledImage(atPoint point: CGPoint, scaleFactor: CGFloat, targetSize size: CGSize) -> UIImage? {
       
         guard let cgImage = self.cgImage else {
             return nil

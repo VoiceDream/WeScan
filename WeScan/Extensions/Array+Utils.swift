@@ -12,7 +12,7 @@ import Foundation
 public extension Array where Element == Quadrilateral {
     
     /// Finds the biggest rectangle within an array of `Quadrilateral` objects.
-    public func biggest() -> Quadrilateral? {
+    func biggest() -> Quadrilateral? {
         guard count > 1 else {
             return first
         }

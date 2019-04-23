@@ -77,7 +77,7 @@ public struct Quadrilateral: Transformable {
     ///   - distance: The distance (threshold) to use for the condition to be met.
     ///   - rectangleFeature: The other rectangle to compare this instance with.
     /// - Returns: True if the given rectangle is within the given distance of this rectangle instance.
-    func isWithin(_ distance: CGFloat, ofRectangleFeature rectangleFeature: Quadrilateral) -> Bool {
+    public func isWithin(_ distance: CGFloat, ofRectangleFeature rectangleFeature: Quadrilateral) -> Bool {
         
         let topLeftRect = topLeft.surroundingSquare(withSize: distance)
         if !topLeftRect.contains(rectangleFeature.topLeft) {

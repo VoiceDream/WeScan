@@ -188,6 +188,8 @@ open class QuadrilateralView: UIView {
     }
     
     public func removeQuadrilateral() {
+        quad = nil
+        visibleQuadLayer.path = nil
         quadLayer.path = nil
         quadLayer.isHidden = true
         visibleQuadLayer.isHidden = true
